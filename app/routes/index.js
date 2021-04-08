@@ -6,20 +6,26 @@ const router = express.Router();
 // base URL
 router.get('/', (req, res) => { return res.send('Api working!'); });
 
-router.get('/users', (req, res) => {
-    res.send(userController.getAll());
+router.get('/users', async (req, res) => {
+    users = await userController.getAll();
+    res.send(users);
 });
 
-router.get('/user/:userId', (req, res) => {
-    res.send(userController.get(req.params.userId));
+router.get('/user/:userId', async (req, res) => {
+    user = await userController.findIyId(req.params.userId);
+    res.send(user);
 });
 
-router.post('/user', (req, res) => {
-    res.send(userController.create(req.body));
+router.post('/user', async (req, res) => {
+    user = await userController.create(req.body);
+    console.log(user);
+    res.send(user);
 });
 
-router.put('/user/:userId', (req, res) => {
-    res.send(userController.update(req.params.userId, req.body));
+router.put('/user/:userId', async (req, res) => {
+    user = await userController.update(req.params.userId, req.body);
+    res.status(204);
+    res.send(user);
 });
 
 module.exports = router;
