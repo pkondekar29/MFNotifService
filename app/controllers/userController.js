@@ -15,7 +15,7 @@ UserController.prototype.findIyId = async (userId) => {
 
 UserController.prototype.getAll = async () => {
     try {
-        return await userService.getAll();
+        return await userService.get();
     } catch(e) {
         console.log(e);
         throw e;

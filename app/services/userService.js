@@ -58,9 +58,7 @@ UserService.prototype.update = async (userId, user) => {
         const userCollection = db.collection("users");
         const query = { "_id": new ObjectId(userId) };
         return await userCollection.updateOne(query, {
-            $set: {
-                "subscription": user.subscription,
-            }
+            $set: user
         });
     } catch(e) {
         console.error(e);
