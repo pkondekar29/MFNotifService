@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./app/routes');
+const consumer = require('./app/services/broker');
 
 // Port number
 const PORT = (process.env.PORT || 3000);
@@ -22,5 +23,8 @@ app.use(apiEndPoint, routes);
 
 // starting server
 server.listen(PORT);
+
+// Start Consumer
+consumer.startConsuming();
 
 module.exports = server;

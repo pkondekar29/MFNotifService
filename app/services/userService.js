@@ -22,12 +22,12 @@ UserService.prototype.findIyId = async (userId) => {
     }
 }
 
-UserService.prototype.getAll = async () => {
+UserService.prototype.get = async (query = {}) => {
     const client = await MongoClient.connect(dbURI);
     try {
         const db = client.db("mf");
         const userCollection = db.collection("users");
-        return await userCollection.find({}).toArray();
+        return await userCollection.find(query).toArray();
     } catch(e) {
         console.error(e);
         throw e;
