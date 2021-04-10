@@ -14,20 +14,16 @@ async function consume() {
     await consumer.run({
         autoCommitInterval: 10,
         eachMessage: async ({ topic, partition, message }) => {
-            // Get the message
-            const orderMessage = JSON.parse(message.value.toString())
-            // Get subscription details
-            user = await userService.get({userName: orderMessage.userName });
-            // Notify the user
-            if(user && user[0])
+            // Get user details
+            user = await userService.get({userName: orderMessage.userName })
+            if(user && user[0]) {   // If User found
+                // Get the message
+                const orderMessage = JSON.parse(message.value.toString())
+                // Notify the user
                 notifier.notify(user[0], orderMessage)
-            else
+            } else {
                 console.log(`User not Found: ${message.userName}`)
-                
-            // console.info({
-            //     key: message.key.toString(),
-            //     value: orderMessage
-            // })
+            }
         }
     })
 }

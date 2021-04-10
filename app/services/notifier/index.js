@@ -12,7 +12,14 @@ getNotifier = (subscriptionType) => {
 
 notify = async (user, message) => {
     const subscriptions = user.subscription;
-    mailNotifier.notify(user, message)
+    if(subscriptions)
+        subscriptions
+            .filter(subscription => subscription.enabled)
+            .map(subscription => getNotifier(subscription.type))
+            .filter(o => o !== null)
+            .forEach(notifier => notifier.notify(user, message))
+    else
+        console.log(`User: [${user._id}, ${user.userName}] has not subscribed to any services`)
 }
 
 module.exports = {
