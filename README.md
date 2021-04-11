@@ -5,7 +5,7 @@ A micro-service to send notifications for incoming message in queue
 # Requirements
 - MongoDB to store user subscriptions. 
   - DB name: *mf* and Collection name: *users*
-  - Give the connection URL in config/sb-config.json
+  - Give the connection URL in config/db-config.json
 - Apacha Kafka cluster with topic *mf-orders*
 
 # How to run
