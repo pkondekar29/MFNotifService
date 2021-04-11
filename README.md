@@ -5,13 +5,17 @@ A micro-service to send notifications for incoming message in queue
 # Requirements
 - MongoDB to store user subscriptions. 
   - DB name: *mf* and Collection name: *users*
+  - Give the connection URL in config/sb-config.json
 - Apacha Kafka cluster with topic *mf-orders*
 
 # How to run
 
-- Navigate to project directory
+- Start MongoDB instance
+- Start Kafka Cluster
+- Navigate to Project Directory
 - Run command 
 > **npm run start**<br>
+- Sample Order Events Producer used: https://github.com/pkondekar29/kafka-clients/blob/master/producer/src/main/java/com/prometheus/kafka/MFOrderProducer.java
 
 # Model
 
