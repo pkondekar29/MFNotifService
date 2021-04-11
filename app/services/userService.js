@@ -1,19 +1,26 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId; 
+const { dbURI } = require('../config/db-config.json');
 
-const dbURI = 'mongodb://localhost:27017/';
-
+/**
+ * Service working with persistence of User entity
+ */
 class UserService {
     constructor() {
     }
 }
 
+/**
+ * Find user by userID uuid
+ * 
+ * @param {String} userId 
+ */
 UserService.prototype.findIyId = async (userId) => {
     const client = await MongoClient.connect(dbURI);
     try {
         const db = client.db("mf");
         const userCollection = db.collection("users");
-        const query = { "_id": new ObjectId(userId) };
+        const query = { _id: ObjectId(userId) };
         return await userCollection.findOne(query);
     } catch(e) {
         console.error(e);
@@ -22,6 +29,12 @@ UserService.prototype.findIyId = async (userId) => {
     }
 }
 
+/**
+ * Get use with query paramter.
+ *  By default gets all the users
+ * 
+ * @param {JSON} query 
+ */
 UserService.prototype.get = async (query = {}) => {
     const client = await MongoClient.connect(dbURI);
     try {
@@ -36,6 +49,11 @@ UserService.prototype.get = async (query = {}) => {
     }
 }
 
+/**
+ * Create user 
+ * 
+ * @param {*} user 
+ */
 UserService.prototype.create = async (user) => {
     const client = await MongoClient.connect(dbURI);
     try {
@@ -51,13 +69,19 @@ UserService.prototype.create = async (user) => {
     }
 }
 
+/**
+ *  Update user for userId. 
+ * 
+ * @param {string} userId 
+ * @param {JSON} user 
+ */
 UserService.prototype.update = async (userId, user) => {
     const client = await MongoClient.connect(dbURI);
     try {
         const db = client.db("mf");
         const userCollection = db.collection("users");
-        const query = { "_id": new ObjectId(userId) };
-        return await userCollection.updateOne(query, {
+        const query = { _id: ObjectId(userId) };
+        return await userCollection.update(query, {
             $set: user
         });
     } catch(e) {

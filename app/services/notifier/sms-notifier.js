@@ -1,6 +1,7 @@
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken)
+const accountSid = process.env.TWILIO_ACCOUNT_SID
+const authToken = process.env.TWILIO_AUTH_TOKEN
+const fromMobileNumber = '+14156495603'
+const client = require('twilio')()
 
 class SMSNotifier {
     constructor(){}
@@ -10,11 +11,14 @@ SMSNotifier.prototype.notify = async (user, message) => {
     client.messages
         .create({
             body: getSMSMessage(message),
-            from: '+14156495603',
+            from: fromMobileNumber,
             to: user.mobileNumber
         })
-        .then(message => console.log(message.sid))
-        .catch(err => console.log(err));
+        .then(message => console.log(`SMS sent for user: ${user.userName}. MessageID: ${message.sid}`))
+        .catch(err => {
+            console.log(err)
+            throw err;
+        });
 }
 
 getSMSMessage = (message) => {

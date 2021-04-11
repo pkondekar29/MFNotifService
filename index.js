@@ -2,7 +2,7 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./app/routes');
-const consumer = require('./app/services/broker');
+const consumer = require('./app/services/broker/order-consumer');
 
 // Port number
 const PORT = (process.env.PORT || 3000);
@@ -25,6 +25,7 @@ app.use(apiEndPoint, routes);
 server.listen(PORT);
 
 // Start Consumer
-consumer.startConsuming();
+consumer.start()
+    .then(_ => console.log("Order notification consumer started"));
 
 module.exports = server;

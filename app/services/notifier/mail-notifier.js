@@ -13,7 +13,7 @@ class EmailNotifier {
     constructor() {}
 }
 
-EmailNotifier.prototype.notify = (user, message) => {
+EmailNotifier.prototype.notify = async (user, message) => {
     var mailOptions = {
         from: 'pkondekar29@gmail.com',
         to: user.emailId,
@@ -21,11 +21,15 @@ EmailNotifier.prototype.notify = (user, message) => {
         text: getMailBody(user, message)
     };
     
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) console.log(error);
-        else console.log(`Email sent for order: ${message.orderId}. Response: ${info.response}`);
-    });
-
+    try {
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) console.log(error);
+            else console.log(`Email sent for order: ${message.orderId}. Response: ${info.response}`);
+        });
+    } catch(e) {
+        console.log(`Error while sending email for user: ${user.userName}`)
+        throw e
+    }
 }
 
 getMailSubject = (message) => {
