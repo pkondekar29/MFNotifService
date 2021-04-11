@@ -65,18 +65,17 @@ A micro-service to send notifications for incoming message in queue
 #### End-point: GET user
 ##### Description: Get user by UserId
 Method: GET
->```
+
 >localhost:3000/api/v1/<userId>
->```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
 
 #### End-point: PATCH user
 ##### Description: Update user details
 Method: PATCH
->```
+
 >localhost:3000/api/v1/user/<userId>
->```
+
 ##### Body (**raw**)
 
 ```json
@@ -103,9 +102,9 @@ Method: PATCH
 #### End-point: POST user
 ##### Description: Create user
 Method: POST
->```
+
 >localhost:3000/api/v1/user
->```
+
 ##### Body (**raw**)
 
 ```json
