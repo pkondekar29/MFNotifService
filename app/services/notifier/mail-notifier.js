@@ -9,10 +9,19 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+/**
+ * Sends Email notification
+ */
 class EmailNotifier {
     constructor() {}
 }
 
+/**
+ * Notify the user by sending an email
+ * 
+ * @param {JSON} user 
+ * @param {JSON} message 
+ */
 EmailNotifier.prototype.notify = async (user, message) => {
     var mailOptions = {
         from: 'pkondekar29@gmail.com',
@@ -22,9 +31,9 @@ EmailNotifier.prototype.notify = async (user, message) => {
     };
     
     try {
-        transporter.sendMail(mailOptions, (error, info) => {
+        return await transporter.sendMail(mailOptions, (error, info) => {
             if (error) console.log(error);
-            else console.log(`Email sent for order: ${message.orderId}. Response: ${info.response}`);
+            else console.log(`Email sent for order: ${message.orderId} to ${user.emailId}. Response: ${info.response}`);
         });
     } catch(e) {
         console.log(`Error while sending email for user: ${user.userName}`)
@@ -32,10 +41,16 @@ EmailNotifier.prototype.notify = async (user, message) => {
     }
 }
 
+/**
+ * Get Email Subject
+ */
 getMailSubject = (message) => {
     return `Your Order of ${message.productName} is ${message.orderStatus}. [Order ID: ${message.orderId}]`;
 }
 
+/**
+ * Get Email Body
+ */
 getMailBody = (user, message) => {
     return `
         Hello ${user.name},
@@ -49,4 +64,6 @@ getMailBody = (user, message) => {
     `;
 }
 
-module.exports = new EmailNotifier()
+module.exports = {
+    EmailNotifier
+}

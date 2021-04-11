@@ -1,11 +1,11 @@
-const mailNotifier = require('./mail-notifier')
-const smsNotifier = require('./sms-notifier')
+const {EmailNotifier} = require('./mail-notifier')
+const {SMSNotifier} = require('./sms-notifier')
 
 getNotifier = (subscriptionType) => {
     if(subscriptionType === 'email') {
-        return mailNotifier;
+        return new EmailNotifier();
     } else if(subscriptionType === 'sms') {
-        return smsNotifier;
+        return new SMSNotifier();
     }
 }
 
@@ -16,13 +16,14 @@ sendNotifications = async (user, message) => {
     if(subscriptions)
         subscriptions
             .filter(subscription => subscription.enabled)       // Filter the subscriptions which are enabled/subscribed
-            .map(subscription => getNotifier(subscription.type))    // Get notifier for the subscription type
-            .map(notifier => {      // Send the notification
+            .map(subscription => {
+                // Get notifier for the subscription type
+                let notifier = getNotifier(subscription.type)    
+                 // Send the notification
                 try {
                     notifier.notify(user, message)
                 } catch(e) {
-                    console.log(`Could not notiy user: ${user.userName} by ${notifier.constructor.name}`)
-                    // throw e
+                    console.log(`Could not notiy user: ${user.userName} by ${notifier.constructor.name}.`, e)
                 }
             })
     else
