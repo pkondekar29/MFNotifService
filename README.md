@@ -3,14 +3,15 @@
 A micro-service to send notifications for incoming message in queue
 
 # Requirements
-1. MongoDB
-2. Apacha Kafka cluster
+- MongoDB to store user subscriptions. 
+  - DB name: *mf* and Collection name: *users*
+- Apacha Kafka cluster with topic *mf-orders*
 
 # How to run
 
-  - Navigate to project directory
-  - Run command 
-  > **npm run start**<br>
+- Navigate to project directory
+- Run command 
+> **npm run start**<br>
 
 # Model
 
@@ -41,16 +42,16 @@ A micro-service to send notifications for incoming message in queue
 
 # Project Structure
 
-**app**<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**routes**: Configure exposed routes of application<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**controllers**: Controllers handling the exposed APIs<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*UserController*: Controller for user APIs<br>
+**app**:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**routes**: Routing configuration exposed from application<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**controllers**: controllers handling the exposed APIs<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*UserController*: controller to handle user APIs<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**services**:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**broker**: Clients of Kafka Queue<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Order Consumer*: Consumer consuming each message and sending notifications<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**broker**: Queue Clients<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Order Consumer*: Kafka consumer to consume each order message<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**notifier**: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*index.js*: Abstract notification layer<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Mail Notifier*: Send notifications by Email<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*SMS Notifier*: Send notifications by SMS<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*index.js*: Notification Handler<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Mail Notifier*: Handle notifications through Email<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*SMS Notifier*: Handle notifications through SMS<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*UserService*: Service connected to DB to operate User entity<br>
 *index.js*: Entry Point to start application
