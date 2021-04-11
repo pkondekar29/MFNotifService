@@ -18,7 +18,7 @@ const server = http.createServer(app);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// setting routes of application
+// set routes of application
 app.use(apiEndPoint, routes);
 
 // starting server

@@ -1,4 +1,4 @@
-const userService = require("../services/userService");
+const {UserService} = require("../services/userService");
 
 /**
  *  Controller to handle User entity CRUD
@@ -17,7 +17,7 @@ UserController.prototype.findIyId = async (userId) => {
         throw new TypeError("UserId is incorrect")
     }
     try {
-        return await userService.findIyId(userId);
+        return await new UserService().findIyId(userId);
     } catch(e) {
         console.log(e);
         throw e;
@@ -29,7 +29,7 @@ UserController.prototype.findIyId = async (userId) => {
  */
 UserController.prototype.getAll = async () => {
     try {
-        return await userService.get();
+        return await new UserService().get();
     } catch(e) {
         console.log(e);
         throw e;
@@ -46,7 +46,7 @@ UserController.prototype.create = async (user) => {
         throw new TypeError(`User: ${user} is invalid`)
     }
     try {
-        return await userService.create(user);
+        return await new UserService().create(user);
     } catch(e) {
         console.log(e);
         throw e;
@@ -64,11 +64,13 @@ UserController.prototype.update = async (userId, user) => {
         throw new TypeError(`UserId: ${userId} or User: ${user} is invalid`)
     }
     try {
-        await userService.update(userId, user);
+        await new UserService().update(userId, user);
     } catch(e) {
         console.log(e);
         throw e;
     }
 }
 
-module.exports = new UserController();
+module.exports = {
+    UserController
+}

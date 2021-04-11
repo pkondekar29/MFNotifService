@@ -92,4 +92,6 @@ UserService.prototype.update = async (userId, user) => {
     }
 }
 
-module.exports = new UserService();
+module.exports = {
+    UserService
+}
